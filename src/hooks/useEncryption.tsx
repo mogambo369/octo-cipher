@@ -206,7 +206,7 @@ export const useEncryption = () => {
     }
   };
 
-  const decryptFile = async (file: File, password: string): Promise<void> => {
+  const decryptFile = async (file: File, password: string): Promise<{ files: Array<{ name: string; data: Blob }> } | null> => {
     setLoading(true);
     
     try {
@@ -270,6 +270,8 @@ export const useEncryption = () => {
         title: 'Decryption successful!',
         description: `${decryptedFiles.length} file(s) decrypted`
       });
+      
+      return { files: decryptedFiles };
     } catch (error) {
       console.error('Decryption error:', error);
       toast({
@@ -277,6 +279,7 @@ export const useEncryption = () => {
         description: error instanceof Error ? error.message : 'Unknown error occurred',
         variant: 'destructive'
       });
+      return null;
     } finally {
       setLoading(false);
     }

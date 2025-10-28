@@ -1,0 +1,4 @@
+project_id = "pfaiakfhcwpkwpbsskry"
+
+[functions.scan-pii]
+verify_jwt = false
